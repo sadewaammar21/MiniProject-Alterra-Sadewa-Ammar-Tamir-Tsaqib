@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "574776997559",
+    "project_id": "loginregister-b3caf",
+    "storage_bucket": "loginregister-b3caf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574776997559:android:1ca7469bece0da5592bf32",
+        "android_client_info": {
+          "package_name": "com.example.newsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu4anp1W-Rya7u7oZEqTASriC9q42YYoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
