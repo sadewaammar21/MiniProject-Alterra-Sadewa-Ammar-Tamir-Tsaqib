@@ -97,6 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
+                        obscureText: true,
                         decoration: const InputDecoration(
                             icon: Icon(
                               Icons.password_outlined,

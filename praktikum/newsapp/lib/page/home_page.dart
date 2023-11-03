@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     Text('Halaman Pencarian'),
   ];
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index) async {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 1) {

@@ -19,6 +19,24 @@ class _LoginPageState extends State<LoginPage> {
   String password = '';
   final _auth = FirebaseAuth.instance;
   @override
+  void initState() {
+    super.initState();
+    checkCurrentUser();
+  }
+
+  void checkCurrentUser() {
+    final user = _auth.currentUser;
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 149, 207, 255),
@@ -122,10 +140,6 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
                         decoration: const InputDecoration(
-                            suffixIcon: Icon(
-                              Icons.visibility,
-                              color: Colors.black,
-                            ),
                             hintText: "Masukkan Password Anda",
                             icon: Icon(
                               Icons.password,
