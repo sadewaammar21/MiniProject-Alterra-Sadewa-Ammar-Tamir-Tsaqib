@@ -1,23 +1,18 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/models/prov_regis.dart';
 import 'package:newsapp/page/home_page.dart';
+import 'package:provider/provider.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
-
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  final _formKey = GlobalKey<FormState>();
-  bool showSpinner = false;
+class RegisterPage extends StatelessWidget {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
-  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    final registrationProvider = Provider.of<RegistrationProvider>(context);
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 149, 207, 255),
       body: SingleChildScrollView(
@@ -60,15 +55,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
                         decoration: const InputDecoration(
-                            icon: Icon(
-                              Icons.email_outlined,
-                              color: Colors.black,
-                            ),
-                            hintText: "Masukkan Email Anda",
-                            hintStyle: TextStyle(
-                              color: Colors.black,
-                            ),
-                            fillColor: Colors.white),
+                          icon: Icon(
+                            Icons.email_outlined,
+                            color: Colors.black,
+                          ),
+                          hintText: "Masukkan Email Anda",
+                          hintStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          fillColor: Colors.white,
+                        ),
                         onChanged: (value) {
                           email = value;
                         },
@@ -99,15 +95,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: TextFormField(
                         obscureText: true,
                         decoration: const InputDecoration(
-                            icon: Icon(
-                              Icons.password_outlined,
-                              color: Colors.black,
-                            ),
-                            hintText: "Masukkan Password Anda",
-                            hintStyle: TextStyle(
-                              color: Colors.black,
-                            ),
-                            fillColor: Colors.white),
+                          icon: Icon(
+                            Icons.password_outlined,
+                            color: Colors.black,
+                          ),
+                          hintText: "Masukkan Password Anda",
+                          hintStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          fillColor: Colors.white,
+                        ),
                         onChanged: (value) {
                           password = value;
                         },
@@ -126,26 +123,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        showSpinner = true;
-                      });
-                      try {
-                        await _auth
-                            .createUserWithEmailAndPassword(
-                                email: email, password: password)
-                            .then((value) {
-                          setState(() {
-                            showSpinner = false;
-                          });
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                              (route) => false);
-                        });
-                      } catch (e) {
-                        print(e);
-                      }
+                      await registrationProvider.registerUser(
+                          email, password, context);
                     }
                   },
                   child: Text(

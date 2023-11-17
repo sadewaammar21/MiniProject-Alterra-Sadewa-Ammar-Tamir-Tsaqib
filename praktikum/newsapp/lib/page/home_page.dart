@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     });
               },
-              icon: Icon(Icons.logout))
+              icon: const Icon(Icons.logout))
         ],
       ),
       body: Consumer<NewsProvider>(
